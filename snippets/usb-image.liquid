@@ -1,0 +1,20 @@
+{% comment %}
+Uso:
+{% render 'usb-image', image: section.settings.image, alt: section.settings.alt, max_width: 1600, class: 'clase-extra', priority: false %}
+priority true = no lazy
+{% endcomment %}
+{% liquid
+assign img = image
+assign mw = max_width | default: 1600
+assign is_priority = priority | default: false
+%}
+{% if img %}
+
+<figure class="usb-img-wrapper {{ class }}"> <div class="usb-img-ph" style="padding-top: {{ 100.0 | times: img.height | divided_by: img.width }}%;"> <img src="{{ img | image_url: width: 480 }}" srcset=" {{ img | image_url: width: 480 }} 480w, {{ img | image_url: width: 720 }} 720w, {{ img | image_url: width: 960 }} 960w, {{ img | image_url: width: 1200 }} 1200w, {{ img | image_url: width: 1600 }} 1600w " sizes="(max-width: 780px) 100vw, {{ mw }}px" width="{{ img.width }}" height="{{ img.height }}" {% unless is_priority %}loading="lazy"{% endunless %} alt="{{ alt | default: img.alt | escape }}" class="usb-img-el" > </div> {% if caption %} <figcaption class="usb-figcaption">{{ caption }}</figcaption> {% endif %} </figure> {% else %} <div class="usb-img-placeholder">Sube una imagen</div> {% endif %}
+Añade al final de tu CSS (usb-landing.css):
+.usb-img-wrapper{position:relative;display:block;border-radius:var(--usb-r-md);overflow:hidden;background:#12171d;border:1px solid var(--usb-border);}
+.usb-img-ph{position:relative;width:100%;background:linear-gradient(110deg,#1b222a 8%,#242e38 18%,#1b222a 33%);background-size:200% 100%;animation:usb-shimmer 1.4s linear infinite;}
+.usb-img-el{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;animation:usb-fade .5s ease forwards;opacity:0;}
+@keyframes usb-shimmer{to{background-position:-200% 0;}}
+@keyframes usb-fade{to{opacity:1;}}
+.usb-figcaption{font-size:.8rem;padding:.65rem .9rem;background:#1b232b;border-top:1px solid #232c36;color:var(--usb-text-soft);}

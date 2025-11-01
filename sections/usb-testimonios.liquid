@@ -1,0 +1,27 @@
+{% schema %}
+{
+"name": "USB Testimonios",
+"tag": "section",
+"class": "usb-landing usb-testimonios-section",
+"settings": [],
+"blocks": [
+{
+"type": "testimonial",
+"name": "Testimonio",
+"settings": [
+{ "type": "image_picker", "id": "image", "label": "Imagen" },
+{ "type": "text", "id": "alt", "label": "ALT", "default": "Cliente satisfecho" },
+{ "type": "textarea", "id": "quote", "label": "Frase", "default": "Excelente servicio y calidad." },
+{ "type": "text", "id": "author", "label": "Autor / Empresa", "default": "Nombre Empresa" }
+]
+}
+],
+"max_blocks": 6,
+"presets": [{ "name": "USB Testimonios" }]
+}
+{% endschema %}
+
+<div class="usb-landing"> <section class="usb-section alt" data-animate> <div class="usb-container"> <div class="usb-testimonials"> {% for block in section.blocks %} <div class="usb-testimonial" {{ block.shopify_attributes }}> {% if block.settings.image %} {% if block.settings.image %}
+{% assign bimg = block.settings.image %}
+
+<div class="usb-img-ph" style="padding-top: {{ 100.0 | times: bimg.height | divided_by: bimg.width }}%; position:relative;"> <img src="{{ bimg | image_url: width: 600 }}" srcset=" {{ bimg | image_url: width: 300 }} 300w, {{ bimg | image_url: width: 450 }} 450w, {{ bimg | image_url: width: 600 }} 600w " sizes="(max-width: 600px) 100vw, 300px" width="{{ bimg.width }}" height="{{ bimg.height }}" alt="{{ block.settings.alt | escape }}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;"> </div> {% endif %} {% endif %} <blockquote>{{ block.settings.quote }}</blockquote> <div class="cite">— {{ block.settings.author }}</div> </div> {% endfor %} {% if section.blocks.size == 0 %} <p style="color:#888;">Agrega bloques de testimonio.</p> {% endif %} </div> </div> </section> </div>

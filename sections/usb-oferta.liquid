@@ -1,0 +1,21 @@
+{% schema %}
+{
+"name": "USB Oferta",
+"tag": "section",
+"class": "usb-landing usb-oferta-section",
+"settings": [
+{ "type": "image_picker", "id": "image", "label": "Imagen" },
+{ "type": "text", "id": "title", "label": "Título", "default": "Oferta Limitada" },
+{ "type": "textarea", "id": "text", "label": "Texto", "default": "Mockup + precarga básica gratuita desde 100 unidades. Control de capacidad real incluido." },
+{ "type": "text", "id": "btn_label", "label": "Texto botón", "default": "Quiero mi Cotización" },
+{ "type": "url", "id": "btn_link", "label": "Link botón" },
+{ "type": "text", "id": "note", "label": "Nota", "default": "Sujeto a stock. Validez 15 días." }
+],
+"presets": [{ "name": "USB Oferta" }]
+}
+{% endschema %}
+
+<div class="usb-landing"> <section class="usb-section" data-animate> <div class="usb-container"> <div class="usb-offer"> {% if section.settings.image %} {% if block.settings.image %}
+{% assign bimg = block.settings.image %}
+
+<div class="usb-img-ph" style="padding-top: {{ 100.0 | times: bimg.height | divided_by: bimg.width }}%; position:relative;"> <img src="{{ bimg | image_url: width: 600 }}" srcset=" {{ bimg | image_url: width: 300 }} 300w, {{ bimg | image_url: width: 450 }} 450w, {{ bimg | image_url: width: 600 }} 600w " sizes="(max-width: 600px) 100vw, 300px" width="{{ bimg.width }}" height="{{ bimg.height }}" alt="{{ block.settings.alt | escape }}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;"> </div> {% endif %} {% endif %} <div class="usb-offer__text"> <h2>{{ section.settings.title }}</h2> <p>{{ section.settings.text }}</p> {% if section.settings.btn_label != blank %} <a href="{{ section.settings.btn_link | default: '#usb-form' }}" class="usb-btn">{{ section.settings.btn_label }}</a> {% endif %} {% if section.settings.note != blank %} <small>{{ section.settings.note }}</small> {% endif %} </div> </div> </div> </section> </div>

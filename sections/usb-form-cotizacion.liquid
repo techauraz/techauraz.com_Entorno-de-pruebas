@@ -1,0 +1,14 @@
+{% schema %}
+{
+"name": "USB Formulario",
+"tag": "section",
+"class": "usb-landing usb-form-section",
+"settings": [
+{ "type": "text", "id": "title", "label": "Título", "default": "Solicita tu Cotización" },
+{ "type": "textarea", "id": "intro", "label": "Texto introductorio", "default": "Completa el formulario y te respondemos dentro de 24h hábiles." }
+],
+"presets": [{ "name": "USB Formulario" }]
+}
+{% endschema %}
+
+<div class="usb-landing" id="usb-form"> <section class="usb-section alt" data-animate> <div class="usb-container"> <div class="usb-form-box"> <h2>{{ section.settings.title }}</h2> <p>{{ section.settings.intro }}</p> {% form 'contact', id: 'usb-quote-form', class: 'usb-form' %} {% if form.posted_successfully? %} <p style="color:#66d27a;">Gracias, hemos recibido tu solicitud.</p> {% endif %} {% if form.errors %} <ul style="color:#ff6f6f; font-size:.8rem; margin:.5rem 0 1rem;"> {% for field in form.errors %} <li>{{ form.errors.messages[field] }}</li> {% endfor %} </ul> {% endif %} <div class="grid"> <label> <span>Nombre</span> <input required type="text" name="contact[name]" value="{{ form.contact.name | default: customer.name }}"> </label> <label> <span>Email</span> <input required type="email" name="contact[email]" value="{{ form.contact.email | default: customer.email }}"> </label> <label> <span>Teléfono</span> <input type="tel" name="contact[phone]" value=""> </label> <label> <span>Empresa</span> <input type="text" name="contact[company]" value=""> </label> <label> <span>Capacidad</span> <select name="contact[Capacidad]"> <option value="">Selecciona</option> <option>8GB</option> <option>16GB</option> <option>32GB</option> <option>64GB</option> <option>128GB</option> <option>256GB</option> </select> </label> <label> <span>Cantidad Estimada</span> <input type="number" min="50" step="50" name="contact[Cantidad]" value=""> </label> <label class="full"> <span>Comentarios / Uso</span> <textarea rows="4" name="contact[Comentarios]" placeholder="Ej: Evento corporativo en octubre, requerimos doble cara."></textarea> </label> </div> <button type="submit" class="usb-btn">Enviar</button> {% endform %} </div> </div> </section> </div>

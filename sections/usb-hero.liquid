@@ -1,0 +1,17 @@
+{% schema %}
+{
+"name": "USB Hero",
+"tag": "section",
+"class": "usb-landing usb-hero-section",
+"settings": [
+{ "type": "image_picker", "id": "hero_image", "label": "Imagen Hero" },
+{ "type": "text", "id": "hero_title", "label": "Título", "default": "Memorias USB Personalizadas Premium" },
+{ "type": "textarea", "id": "hero_text", "label": "Texto", "default": "Capacidades reales verificadas, grabado profesional y entregas ágiles." },
+{ "type": "text", "id": "hero_btn_label", "label": "Texto botón", "default": "Solicitar Cotización" },
+{ "type": "url", "id": "hero_btn_link", "label": "Link botón" }
+],
+"presets": [{ "name": "USB Hero" }]
+}
+{% endschema %}
+
+<div class="usb-landing"> <section class="usb-section usb-hero" data-animate> <div class="usb-container usb-hero__grid"> <div class="usb-hero__media"> {% if section.settings.hero_image %} {% assign img = section.settings.hero_image %} <div class="usb-img-wrapper"> <div class="usb-img-ph" style="padding-top: {{ 100.0 | times: img.height | divided_by: img.width }}%;"></div> <img src="{{ img | image_url: width: 720 }}" srcset=" {{ img | image_url: width: 480 }} 480w, {{ img | image_url: width: 720 }} 720w, {{ img | image_url: width: 1080 }} 1080w, {{ img | image_url: width: 1440 }} 1440w " sizes="(max-width: 900px) 100vw, 50vw" width="{{ img.width }}" height="{{ img.height }}" alt="{{ section.settings.hero_title | escape }}" class="usb-img-el" > </div> {% else %} <div style="aspect-ratio:16/9;background:#222;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#666;">Sube una imagen</div> {% endif %} </div> <div class="usb-hero__content"> <h1 class="usb-hero__title">{{ section.settings.hero_title }}</h1> <p>{{ section.settings.hero_text }}</p> {% if section.settings.hero_btn_label %} <a class="usb-btn" href="{{ section.settings.hero_btn_link | default: '#usb-form' }}">{{ section.settings.hero_btn_label }}</a> {% endif %} </div> </div> </section> </div>
